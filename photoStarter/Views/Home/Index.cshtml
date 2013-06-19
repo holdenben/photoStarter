@@ -1,0 +1,23 @@
+﻿@using System.Globalization
+@using photoStarter.ServiceLayer
+
+@{
+    var flickrPhotos = new FlickrBLL();
+    const string flickrUserName = "95501702@N06";
+    var photoSetList = FlickrBLL.GetPhotoSetsByUser(flickrUserName);
+}
+
+
+<div class="span3"></div>
+<div class="span9">
+    
+    <h3>Stuff:</h3>
+    <p>
+        @foreach (var photoSetID in photoSetList) {
+            <h5>@photoSetID.Title:</h5>
+            <a target="_new" href="@photoSetID.Url">View on Flickr</a>
+
+        }
+    </p>
+
+</div>
