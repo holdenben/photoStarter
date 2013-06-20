@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -45,8 +46,38 @@ namespace photoStarter.ServiceLayer
 				return (int)Math.Floor((double)startRowIndex / (double)maximumRows);
 		}
 
-		//public static 
+		public static PhotoInfo GetPhotoInfo(string photoId) {
+			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
+				ConfigurationManager.AppSettings["sharedSecret"]);
 
+			return flickr.PhotosGetInfo(photoId);
+		}
+
+		public static FoundUser GetUserInfo(string userName) {
+			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
+			ConfigurationManager.AppSettings["sharedSecret"]);
+
+			return flickr.PeopleFindByUserName(userName);
+		}
+
+		public static PhotoCollection GetPublicUserPhotos(string userId) {
+			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
+			ConfigurationManager.AppSettings["sharedSecret"]);
+
+			const int photosPerPage = 500; //max allowed
+			const int pageToReturn = 1; //first page
+
+			return flickr.PeopleGetPublicPhotos(userId, pageToReturn, photosPerPage, SafetyLevel.None, PhotoSearchExtras.Tags);
+		}
+
+		public static string GetAllTags(string userId) { 
+			var photos = GetPublicUserPhotos(userId);
+			var tags = photos.SelectMany(photo => photo.Tags).ToList();
+
+			string result = string.Join(", ", tags);
+
+			return result;
+		} 
 
 	}
 }

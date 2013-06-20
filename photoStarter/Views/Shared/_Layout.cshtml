@@ -2,11 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - photoStarter</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -34,15 +36,14 @@
         <div id="body">
             @RenderSection("featured", required: false)
             <div class="container-fluid"></div>
-                <div class="row-fluid">
-                    @RenderBody()
-                </div>
+            <div class="row-fluid">
+                @RenderBody()
+            </div>
             </div>
         <footer>
             <p>&copy; @DateTime.Now.Year - photoStarter</p>
         </footer>
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+
     </body>
 </html>

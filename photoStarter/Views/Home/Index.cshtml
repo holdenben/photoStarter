@@ -1,23 +1,16 @@
-﻿@using System.Globalization
-@using photoStarter.ServiceLayer
+﻿@using photoStarter.ServiceLayer
 
 @{
-    var flickrPhotos = new FlickrBLL();
-    const string flickrUserName = "95501702@N06";
-    var photoSetList = FlickrBLL.GetPhotoSetsByUser(flickrUserName);
+    const string flickrUserId = "95501702@N06";
+    var photoCollection = FlickrBLL.GetPublicUserPhotos(flickrUserId);
 }
-
 
 <div class="span3"></div>
 <div class="span9">
     
-    <h3>Stuff:</h3>
-    <p>
-        @foreach (var photoSetID in photoSetList) {
-            <h5>@photoSetID.Title:</h5>
-            <a target="_new" href="@photoSetID.Url">View on Flickr</a>
-
-        }
-    </p>
+    @foreach (var photo in photoCollection) {
+        <a target="_new" href="@photo.LargeUrl"><img src="@photo.ThumbnailUrl" alt="Thumbnail" /></a>
+    }
 
 </div>
+

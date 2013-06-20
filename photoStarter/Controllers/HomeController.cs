@@ -8,7 +8,15 @@ namespace photoStarter.Controllers {
 	public class HomeController : Controller {
 		public ActionResult Index() {
 			ViewBag.Title = "Home";
-			ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+			ViewBag.Message = "My Photo's";
+
+			return View();
+		}
+
+
+		public ActionResult WordCloud() {
+			ViewBag.Title = "WordCloud";
+			ViewBag.Message = "Tag Word Cloud";
 
 			return View();
 		}
