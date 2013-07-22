@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using FlickrNet;
+using photoStarter.ServiceLayer;
 
 namespace photoStarter.Controllers {
 	public class HomeController : Controller {
-		public ActionResult Index(string userId) {
-			var jimmy = userId;
+		public ActionResult Index() {
 			ViewBag.Title = "Home";
 			ViewBag.Message = "My Photo's";
 
-			return View(jimmy);
+			return View();
 		}
 
 

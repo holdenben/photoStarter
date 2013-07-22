@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+@using photoStarter.ServiceLayer
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -10,6 +12,11 @@
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     
+        @{
+            var uid = ConfigurationManager.AppSettings["DefaultUser"];
+            GlobalVal.PhotoCollection = FlickrBLL.GetPublicUserPhotos(uid);
+        }
+        
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,7 +37,6 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("WordCloud", "WordCloud", "Home")</li>
                             <li>@Html.ActionLink("About Me", "AboutMe", "Home")</li>
-
                         </ul>
                         <ul class="nav pull-right">
                             <li class="dropdown">
@@ -39,10 +45,13 @@
                                     <b class="caret"></b>
                                 </a>
                                 <div id="userDetails" class="collapse pull-right">
-                                    <div class="input-prepend" style="margin-right: 10px; margin-left: 10px">
-                                       <span class="add-on">Flickr User Id</span>
-                                         <input class="span2" id="flickrUserId" type="text" value="95501702@N06"/>
-                                    </div> 
+                                    <form>
+                                        <div class="input-prepend input-append" style="margin-right: 10px; margin-left: 10px">
+                                            <span class="add-on">Flickr User Id</span>
+                                            <input class="span2" id="flickrUserId" name="flickrUserId" type="text" value="95501702@N06"/>
+                                            <button type="button" class="btn">Go!</button>
+                                        </div> 
+                                    </form>
                                 </div>
                             </li>
                         </ul>

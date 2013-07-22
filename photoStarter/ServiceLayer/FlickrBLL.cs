@@ -14,7 +14,7 @@ namespace photoStarter.ServiceLayer
 	[DataObject(true)]
 	[Serializable]
 	public class FlickrBLL {
-		[DataObjectMethodAttribute(DataObjectMethodType.Select, true)]
+		[DataObjectMethod(DataObjectMethodType.Select, true)]
 		public static PhotosetPhotoCollection GetPagedSet(string setId, int maximumRows, int startRowIndex) {
 			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
 				ConfigurationManager.AppSettings["sharedSecret"]);
@@ -31,7 +31,7 @@ namespace photoStarter.ServiceLayer
 			return set.NumberOfPhotos;
 		}
 
-		[DataObjectMethodAttribute(DataObjectMethodType.Select, false)]
+		[DataObjectMethod(DataObjectMethodType.Select, false)]
 		public static PhotosetCollection GetPhotoSetsByUser(string userId) {
 			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
 				ConfigurationManager.AppSettings["sharedSecret"]);
@@ -60,15 +60,7 @@ namespace photoStarter.ServiceLayer
 			return flickr.PeopleFindByUserName(userName);
 		}
 
-		public static PhotoCollection GetPublicUserPhotos(string userId) {
-			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
-			ConfigurationManager.AppSettings["sharedSecret"]);
 
-			const int photosPerPage = 500; //max allowed
-			const int pageToReturn = 1; //first page
-
-			return flickr.PeopleGetPublicPhotos(userId, pageToReturn, photosPerPage, SafetyLevel.None, PhotoSearchExtras.Tags);
-		}
 
 		public static string GetAllTags(string userId) { 
 			var photos = GetPublicUserPhotos(userId);
@@ -77,7 +69,16 @@ namespace photoStarter.ServiceLayer
 			string result = string.Join(", ", tags);
 
 			return result;
-		} 
+		}
 
+		public static List<Photo> GetPublicUserPhotos(string flickrUserId) {
+			Flickr flickr = new Flickr(ConfigurationManager.AppSettings["apiKey"],
+			                           ConfigurationManager.AppSettings["sharedSecret"]);
+
+			const int photosPerPage = 500; //max allowed
+			const int pageToReturn = 1; //first page
+
+			return string.IsNullOrEmpty(flickrUserId) ? new List<Photo>() : flickr.PeopleGetPublicPhotos(flickrUserId, pageToReturn, photosPerPage, SafetyLevel.None, PhotoSearchExtras.Tags | PhotoSearchExtras.DateTaken).OrderByDescending(p => p.DateTaken).ToList();
+		}
 	}
 }
