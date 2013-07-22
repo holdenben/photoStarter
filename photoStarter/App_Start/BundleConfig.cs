@@ -8,7 +8,8 @@ namespace photoStarter {
 			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
 						"~/Scripts/jquery-{version}.js",
 						"~/Scripts/bootstrap.js",
-						"~/Scripts/worker.js"));
+						"~/Scripts/worker.js",
+						"~/Scripts/highslide.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
 						"~/Scripts/jquery-ui-{version}.js"));
@@ -25,7 +26,8 @@ namespace photoStarter {
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/css/bootstrap.css",
 				"~/css/bootstrap-responsive.css",
-				"~/css/site.css"));
+				"~/css/site.css",
+				"~/css/highslide.css"));
 
 			//bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
 			//			"~/Content/themes/base/jquery.ui.core.css",

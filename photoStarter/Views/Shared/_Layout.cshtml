@@ -9,6 +9,7 @@
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
+    
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,12 +22,29 @@
                     </button>
                     <a class="brand" href="#">photoStarter</a>
                     <div class="nav-collapse collapse">
-                        <p class="navbar-text pull-right">Login | Logout</p>
-
+                        @*<p class="navbar-text pull-right">
+                            Login | Logout
+                        </p>*@
+                        
                         <ul class="nav">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("WordCloud", "WordCloud", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                            <li>@Html.ActionLink("About Me", "AboutMe", "Home")</li>
+
+                        </ul>
+                        <ul class="nav pull-right">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="collapse" data-target="#userDetails" href="#" align="right">
+                                    Set User
+                                    <b class="caret"></b>
+                                </a>
+                                <div id="userDetails" class="collapse pull-right">
+                                    <div class="input-prepend" style="margin-right: 10px; margin-left: 10px">
+                                       <span class="add-on">Flickr User Id</span>
+                                         <input class="span2" id="flickrUserId" type="text" value="95501702@N06"/>
+                                    </div> 
+                                </div>
+                            </li>
                         </ul>
 
                     </div>
@@ -35,7 +53,7 @@
         </div>
         <div id="body">
             @RenderSection("featured", required: false)
-            <div class="container-fluid"></div>
+            <div class="container-fluid" style="margin-top: 60px"></div>
             <div class="row-fluid">
                 @RenderBody()
             </div>

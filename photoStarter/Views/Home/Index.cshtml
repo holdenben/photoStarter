@@ -3,14 +3,48 @@
 @{
     const string flickrUserId = "95501702@N06";
     var photoCollection = FlickrBLL.GetPublicUserPhotos(flickrUserId);
+
 }
 
-<div class="span3"></div>
+<div class="span3">
+
+</div>
+
 <div class="span9">
     
     @foreach (var photo in photoCollection) {
-        <a target="_new" href="@photo.LargeUrl"><img src="@photo.ThumbnailUrl" alt="Thumbnail" /></a>
+
+        <a href="@photo.MediumUrl" target="_new" class="highslide" onclick="return hs.expand(this)">
+            <img class="sqThumbnail" src="@photo.LargeSquareThumbnailUrl" alt="Thumbnail"/>
+        </a>
+
+        <div class="highslide-caption">
+            <div>@photo.Title - (@photo.Tags.ToList().Aggregate("", (current, tag) => current + ", " + tag).Substring(2))</div>
+            <div>@photo.Description</div>
+            <div><a href="@photo.WebUrl" target="_new">View In Flickr</a></div>
+        </div>
     }
 
 </div>
 
+<script type="text/javascript">
+	hs.align = 'center';
+	hs.transitions = ['expand', 'crossfade'];
+	hs.outlineType = 'rounded-white';
+	hs.fadeInOut = true;
+	hs.numberPosition = 'caption';
+	hs.dimmingOpacity = 0.75;
+
+	// Add the controlbar
+	if (hs.addSlideshow) hs.addSlideshow({
+		interval: 5000,
+		repeat: false,
+		useControls: true,
+		fixedControls: 'fit',
+		overlayOptions: {
+			opacity: .75,
+			position: 'bottom center',
+			hideOnMouseOut: true
+		}
+	});
+</script>
