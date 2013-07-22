@@ -12,10 +12,7 @@
         @Scripts.Render("~/bundles/jquery")
         @RenderSection("scripts", required: false)
     
-        @{
-            var uid = ConfigurationManager.AppSettings["DefaultUser"];
-            GlobalVal.PhotoCollection = FlickrBLL.GetPublicUserPhotos(uid);
-        }
+
         
     </head>
     <body>
@@ -48,7 +45,7 @@
                                     <form>
                                         <div class="input-prepend input-append" style="margin-right: 10px; margin-left: 10px">
                                             <span class="add-on">Flickr User Id</span>
-                                            <input class="span2" id="flickrUserId" name="flickrUserId" type="text" value="95501702@N06"/>
+                                            <input class="span2" id="flickrUserId" name="flickrUserId" type="text" placeholder="95501702@N06"/>
                                             <button type="button" class="btn">Go!</button>
                                         </div> 
                                     </form>

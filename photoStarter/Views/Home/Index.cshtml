@@ -1,11 +1,10 @@
-﻿@using photoStarter.ServiceLayer
+﻿@using System.Configuration
+@using photoStarter.ServiceLayer
 
-
-
-@{
-    //const string flickrUserId = "95501702@N06";
-    //var photoCollection = FlickrBLL.GetPublicUserPhotos(flickrUserId);
-}
+        @{
+            var uid = ConfigurationManager.AppSettings["DefaultUser"];
+            GlobalVal.PhotoCollection = FlickrBLL.GetPublicUserPhotos(uid);
+        }
 
 <div class="span3">
 
@@ -27,7 +26,6 @@
     }
 
 </div>
-
 
 <script type="text/javascript">
     hs.align = 'center';
